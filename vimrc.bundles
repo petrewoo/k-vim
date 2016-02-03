@@ -16,8 +16,8 @@ filetype off " required! turn off
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    " let g:bundle_groups=['python', 'javascript', 'golang', 'php', 'ruby', 'shell', 'markdown', 'html', 'css', 'less', 'coffeescript', 'tmux', 'json', 'beta']
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta']
+    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript', 'shell']
+    let g:bundle_groups=['python', 'tmux', 'beta', 'json', 'golang']
 endif
 
 " ----------------------------------------------------------------------------
@@ -160,6 +160,9 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
 
+"add ag 
+Plug 'rking/ag.vim'
+
 if count(g:bundle_groups, 'tmux')
     " tmux
     " For tmux navigator Ctrl-hjkl
@@ -181,6 +184,8 @@ if count(g:bundle_groups, 'golang')
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
     Plug 'fatih/vim-go', {'for': 'go'}
+    Plug 'nsf/gocode'
+    Plug 'bradfitz/goimports'
 endif
 
 
@@ -598,18 +603,18 @@ endif
     let g:ctrlp_mruf_max=500
     let g:ctrlp_follow_symlinks=1
     " 如果安装了ag, 使用ag
-    " if executable('ag')
-    " " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    " " ag is fast enough that CtrlP doesn't need to cache
-    " let g:ctrlp_use_caching = 0
-    " endif
+    if executable('ag')
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+    endif
 
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
     nnoremap <Leader>fu :CtrlPFunky<Cr>
     " narrow the list down with a word under cursor
-    nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+    nnoremap <Leader>fy :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     let g:ctrlp_funky_syntax_highlight = 1
 
     let g:ctrlp_extensions = ['funky']
@@ -677,7 +682,7 @@ endif
     let g:airline_symbols.linenr = '¶'
     let g:airline_symbols.branch = '⎇'
     " 是否打开tabline
-    " let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 
@@ -718,7 +723,7 @@ endif
     let g:solarized_termtrans=1
     let g:solarized_contrast="normal"
     let g:solarized_visibility="normal"
-    " let g:solarized_termcolors=256
+    let g:solarized_termcolors=256
 " }}}
 
 " molokai {{{
