@@ -151,7 +151,6 @@ Plug 'kana/vim-textobj-indent'
 "add ag 
 Plug 'rking/ag.vim'
 
-
 "add scratch.vim
 Plug 'mtth/scratch.vim'
 
@@ -526,8 +525,8 @@ call plug#end()
     let g:ctrlp_match_window_reversed=0
     let g:ctrlp_mruf_max=500
     let g:ctrlp_follow_symlinks=1
-    let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+    " let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+    " let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
     if executable('ag')
         " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
         let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
