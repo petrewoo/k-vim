@@ -121,7 +121,7 @@ Plug 'sjl/gundo.vim'
 " view
 " airline
 " 状态栏增强展示
-Plug 'vim-airline/vim-airline'
+Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
