@@ -212,8 +212,9 @@ if count(g:bundle_groups, 'javascript')
     Plug 'othree/javascript-libraries-syntax.vim'
     let g:used_javascript_libs = 'jquery,underscore,backbone'
 
-    " for javascript 自动补全,配合YCM,需要安装nodejs&npm  see
-    " https://github.com/marijnh/tern_for_vim
+    " for javascript 自动补全, 配合YCM, 需要安装全局环境的（非nvm中) node.js&npm
+    " 安装完成后还需要在 bundle/tern_for_vim 下执行 npm install 安装依赖
+    " see https://github.com/marijnh/tern_for_vim
     " Plug 'marijnh/tern_for_vim'
 endif
 
@@ -309,6 +310,10 @@ call plug#end()
 
     " 修改高亮的背景色, 适应主题
     highlight SyntasticErrorSign guifg=white guibg=black
+
+    " 禁止插件检查java
+    " thanks to @marsqing, see https://github.com/wklken/k-vim/issues/164
+    let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['java'] }
 " }}}
 
 
@@ -632,8 +637,10 @@ call plug#end()
     " 关闭同步
     let g:nerdtree_tabs_synchronize_view=0
     let g:nerdtree_tabs_synchronize_focus=0
-    " 自动开启nerdtree
-    "let g:nerdtree_tabs_open_on_console_startup=1
+    " 是否自动开启nerdtree
+    " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
+    let g:nerdtree_tabs_open_on_console_startup=0
+    let g:nerdtree_tabs_open_on_gui_startup=0
 " }}}
 
 
@@ -729,7 +736,6 @@ call plug#end()
     let g:go_fmt_fail_silently = 1
     " let g:go_fmt_command = "goimports"
     " let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-    " let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['go'] }
 " }}}
 
 " markdown {{{
