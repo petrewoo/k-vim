@@ -163,6 +163,12 @@ Plug 'kana/vim-textobj-indent'
 "add ag 
 Plug 'rking/ag.vim'
 
+"add python-mode
+Plug 'klen/python-mode'
+
+"add scratch.vim
+Plug 'mtth/scratch.vim'
+
 if count(g:bundle_groups, 'tmux')
     " tmux
     " For tmux navigator Ctrl-hjkl
