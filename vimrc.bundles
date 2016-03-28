@@ -159,8 +159,6 @@ Plug 'kana/vim-textobj-indent'
 "add ag 
 Plug 'rking/ag.vim'
 
-"add python-mode
-Plug 'klen/python-mode'
 
 "add scratch.vim
 Plug 'mtth/scratch.vim'
@@ -197,6 +195,7 @@ if count(g:bundle_groups, 'python')
     Plug 'hdima/python-syntax'
     Plug 'hynek/vim-python-pep8-indent'
     Plug 'Glench/Vim-Jinja2-Syntax'
+    " Plug 'klen/python-mode'
 endif
 
 if count(g:bundle_groups, 'php')
@@ -378,7 +377,7 @@ call plug#end()
     "let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
 
     " 跳转到定义处, 分屏打开
-    let g:ycm_goto_buffer_command = 'horizontal-split'
+    let g:ycm_goto_buffer_command = 'vertical-split'
     " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
     nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
     nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
@@ -591,7 +590,7 @@ call plug#end()
     " 同git diff,实时展示文件中修改的行
     " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
     let g:gitgutter_map_keys = 0
-    let g:gitgutter_enabled = 0
+    let g:gitgutter_enabled = 1
     let g:gitgutter_highlight_lines = 1
     nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
