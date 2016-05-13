@@ -437,7 +437,7 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " 去掉搜索高亮
-noremap <silent><leader>/ :nohls<CR>
+noremap <silent><leader>c :nohls<CR>
 
 " switch # *
 nnoremap # *
@@ -599,9 +599,8 @@ function! AutoSetFileHead()
 
     "如果文件类型为python
     if &filetype == 'python'
-        " call setline(1, "\#!/usr/bin/env python")
-        " call append(1, "\# encoding: utf-8")
-        call setline(1, "\# -*- coding: utf-8 -*-")
+        call setline(1, "\#!/usr/bin/env python")
+        call append(1, "\# -*- encoding: utf-8 -*-")
     endif
 
     normal G
