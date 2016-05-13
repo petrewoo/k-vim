@@ -506,6 +506,11 @@ call plug#end()
 
 " ################### 功能相关 ###################
 
+" ag {{{
+    nnoremap <leader>r :Ag!
+    nnoremap <leader>3 :AgFromSearch<CR>
+" }}}
+
 " ctrlp ctrlpfunky{{{
     let g:ctrlp_map = '<leader>p'
     let g:ctrlp_cmd = 'CtrlP'
@@ -543,7 +548,7 @@ call plug#end()
 
 " ctrlsf {{{
     nmap \ <Plug>CtrlSFCwordPath<CR>
-    " let g:ctrlsf_position = 'below'
+    let g:ctrlsf_position = 'right'
     " let g:ctrlsf_winsize = '30%'
     let g:ctrlsf_auto_close = 0
     let g:ctrlsf_confirm_save = 0
