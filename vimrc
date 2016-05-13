@@ -476,7 +476,7 @@ map <leader>tm :tabm<cr>
 " normal模式下切换到确切的tab
 noremap <leader>1 1gt
 noremap <leader>2 2gt
-noremap <leader>3 3gt
+" noremap <leader>3 3gt
 noremap <leader>4 4gt
 noremap <leader>5 5gt
 noremap <leader>6 6gt
