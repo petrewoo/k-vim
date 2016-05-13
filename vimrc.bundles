@@ -45,16 +45,14 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " 代码自动补全
 " 迄今为止用到的最好的自动VIM自动补全插件
 " 重启 :YcmRestartServer
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'build': {'mac': './install.py --clang-completer --gocode-completer'}}
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
 
-" quick edit
-" 快速注释
-Plug 'scrooloose/nerdcommenter'
-
+" quick comment
+Plug 'tpope/vim-commentary'
 
 " 快速加入修改环绕字符
 " for repeat -> enhance surround.vim, . to repeat command
@@ -112,14 +110,8 @@ Plug 'dyng/ctrlsf.vim'
 " map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
 
-" quick run
-" quickrun
-Plug 'thinca/vim-quickrun'
-
 " git
-" fugitive
 Plug 'tpope/vim-fugitive'
-" gitgutter
 Plug 'airblade/vim-gitgutter'
 
 " gundo
@@ -442,20 +434,19 @@ endif
     " 回车作为选中
     let g:ycm_key_list_stop_completion = ['<CR>']
 
-    "let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
-
     " 跳转到定义处, 分屏打开
     let g:ycm_goto_buffer_command = 'vertical-split'
     let g:ycm_register_as_syntastic_checker = 0
     " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-    nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+    " nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    nnoremap <leader>d :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    " nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 
     " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
     " old version
-    if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
-        let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
-    endif
+    " if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
+    "     let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
+    " endif
     " new version
     if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
         let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
@@ -602,17 +593,19 @@ endif
         \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
         \ }
     let g:ctrlp_working_path_mode=0
+    let g:ctrlp_show_hidden = 1
     let g:ctrlp_match_window_bottom=1
     let g:ctrlp_max_height=15
     let g:ctrlp_match_window_reversed=0
     let g:ctrlp_mruf_max=500
     let g:ctrlp_follow_symlinks=1
-    " 如果安装了ag, 使用ag
+    let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
     if executable('ag')
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
+        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+        " ag is fast enough that CtrlP doesn't need to cache
+        let g:ctrlp_use_caching = 0
     endif
 
     " ctrlpfunky
@@ -621,7 +614,7 @@ endif
     " narrow the list down with a word under cursor
     nnoremap <Leader>fy :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     let g:ctrlp_funky_syntax_highlight = 1
-
+    let g:ctrlp_funky_matchtype = 'path'
     let g:ctrlp_extensions = ['funky']
 " }}}
 
@@ -825,19 +818,6 @@ endif
 
 
 " ################### 语言相关 ###################
-
-" quickrun {{{
-    let g:quickrun_config = {
-    \   "_" : {
-    \       "outputter" : "message",
-    \   },
-    \}
-
-    let g:quickrun_no_default_key_mappings = 1
-    nmap <Leader>r <Plug>(quickrun)
-    map <F10> :QuickRun<CR>
-" }}}
-
 
 " pythonsyntax {{{
     let python_highlight_all = 1
