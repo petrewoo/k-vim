@@ -603,7 +603,7 @@ call plug#end()
     " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
     let g:gitgutter_map_keys = 0
     let g:gitgutter_enabled = 1
-    let g:gitgutter_highlight_lines = 1
+    " let g:gitgutter_highlight_lines = 1
     nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
