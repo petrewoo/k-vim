@@ -447,11 +447,11 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 " tab/buffer相关
 
 " 切换前后buffer
-nnoremap [b :bprevious<cr>
-nnoremap ]b :bnext<cr>
+" nnoremap [b :bprevious<cr>
+" nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
-noremap <left> :bp<CR>
-noremap <right> :bn<CR>
+" noremap <left> :bp<CR>
+" noremap <right> :bn<CR>
 
 
 " tab 操作
