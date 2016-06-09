@@ -114,12 +114,11 @@ Plug 'airblade/vim-gitgutter'
 " edit history, 可以查看回到某个历史状态
 Plug 'sjl/gundo.vim'
 
-" view
-" airline
-" 状态栏增强展示
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" rainbow_parentheses
+" statusline/tabline
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+
 " 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
 " 主题 solarized
@@ -148,7 +147,7 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
 
-"add ag 
+"add ag
 Plug 'rking/ag.vim'
 
 "add scratch.vim
@@ -161,6 +160,7 @@ if count(g:bundle_groups, 'tmux')
 endif
 
 if count(g:bundle_groups, 'markdown')
+    Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown', {'for': 'md'}
     " https://github.com/suan/vim-instant-markdown
     " npm -g install instant-markdown-d
@@ -593,23 +593,56 @@ call plug#end()
     noremap <leader>h :GundoToggle<CR>
 " }}}
 
-" ################### 显示增强 ###################
 
-" airline {{{
-    if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
+" lightline
+set laststatus=2
+let g:lightline = {
+    \ 'colorscheme': 'jellybeans',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'fugitive', 'filename' ] ]
+    \ },
+    \ 'component_function': {
+    \   'fugitive': 'LightLineFugitive',
+    \   'readonly': 'LightLineReadonly',
+    \   'modified': 'LightLineModified',
+    \   'filename': 'LightLineFilename'
+    \ },
+    \ }
+
+function! LightLineModified()
+    if &filetype == "help"
+        return ""
+    elseif &modified
+        return "+"
+    elseif &modifiable
+        return ""
+    else
+        return ""
     endif
-    let g:airline_left_sep = '▶'
-    let g:airline_left_alt_sep = '❯'
-    let g:airline_right_sep = '◀'
-    let g:airline_right_alt_sep = '❮'
-    let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.branch = '⎇'
-    " 是否打开tabline
-    let g:airline#extensions#tabline#enabled = 1
-" }}}
+endfunction
 
+function! LightLineReadonly()
+    if &filetype == "help"
+        return ""
+    elseif &readonly
+        return "RO"
+    else
+        return ""
+    endif
+endfunction
 
+function! LightLineFugitive()
+    return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+
+function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+" let g:lightline = {'colorscheme': 'wombat'}
 
 " rainbow_parentheses {{{
     " 不加入这行, 防止黑色括号出现, 很难识别
