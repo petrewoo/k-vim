@@ -45,7 +45,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " 代码自动补全
 " 迄今为止用到的最好的自动VIM自动补全插件
 " 重启 :YcmRestartServer
-Plug 'Valloric/YouCompleteMe', {'build': {'mac': './install.py --clang-completer --gocode-completer'}}
+Plug 'Valloric/YouCompleteMe', {'dir': '~/.vim/bundle/YouCompleteMe', 'do': './install.py --clang-completer --gocode-completer'}
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
@@ -153,6 +153,9 @@ Plug 'kana/vim-textobj-indent'
 
 "add ag
 Plug 'rking/ag.vim'
+
+" add fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 "add scratch.vim
 Plug 'mtth/scratch.vim'
@@ -273,9 +276,9 @@ if count(g:bundle_groups, 'beta')
     " <leader>ig to trigger
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
-    let g:indent_guides_auto_colors = 1
-    " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
-    " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
+    let g:indent_guides_auto_colors = 0
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=lightgrey
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=lightgrey
 
     " Plug 'robbles/logstash.vim'
     " Plug 'ryanoasis/vim-devicons'
@@ -283,7 +286,6 @@ if count(g:bundle_groups, 'beta')
 
     " Plug 'ConradIrwin/vim-bracketed-paste'
     " Plug 'roxma/vim-paste-easy'
-
 
 endif
 
