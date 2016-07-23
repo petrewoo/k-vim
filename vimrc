@@ -328,12 +328,8 @@ map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
 
-"Treat long lines as break lines (useful when moving around in them)
-"se swap之后，同物理行上线直接跳
-nnoremap k gk
-nnoremap gk k
-nnoremap j gj
-nnoremap gj j
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " F1 - F6 设置
 
@@ -382,10 +378,10 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 " 分屏窗口移动, Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" map <C-j> <C-W>j
+" map <C-k> <C-W>k
+" map <C-h> <C-W>h
+" map <C-l> <C-W>l
 
 
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin
@@ -526,7 +522,8 @@ nnoremap <leader>v V`}
 cmap w!! w !sudo tee >/dev/null %
 
 " kj 替换 Esc
-inoremap kj <Esc>
+" inoremap kj <Esc>
+inoremap <leader><leader> <Esc>
 
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 2<C-e>
