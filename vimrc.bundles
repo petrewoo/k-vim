@@ -623,6 +623,7 @@ function! LightLineModified()
     else
         return ""
     endif
+<<<<<<< HEAD
 endfunction
 
 function! LightLineReadonly()
