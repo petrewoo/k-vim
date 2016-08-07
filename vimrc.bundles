@@ -155,6 +155,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "add scratch.vim
 Plug 'mtth/scratch.vim'
 
+Plug 'chriskempson/base16-vim'
+
 if count(g:bundle_groups, 'tmux')
     " tmux
     " For tmux navigator Ctrl-hjkl
