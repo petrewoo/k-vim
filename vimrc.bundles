@@ -156,6 +156,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'mtth/scratch.vim'
 
 Plug 'chriskempson/base16-vim'
+Plug 'Yggdroot/indentLine'
 
 if count(g:bundle_groups, 'tmux')
     " tmux
@@ -274,14 +275,24 @@ endif
 " this is just for beta version
 if count(g:bundle_groups, 'beta')
     " indent
-    Plug 'nathanaelkane/vim-indent-guides'
+    " Plug 'nathanaelkane/vim-indent-guides'
     " <leader>ig to trigger
-    let g:indent_guides_start_level = 2
-    let g:indent_guides_guide_size = 1
-    let g:indent_guides_auto_colors = 0
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=lightgrey
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=lightgrey
+    " let g:indent_guides_start_level = 2
+    " let g:indent_guides_guide_size = 1
+    " let g:indent_guides_auto_colors = 0
+    " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=lightgrey
+    " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=lightgrey
+    " Vim
+    let g:indentLine_color_term = 239
 
+    " GVim
+    let g:indentLine_color_gui = '#A4E57E'
+
+    " none X terminal
+    let g:indentLine_color_tty_light = 7 " (default: 4)
+    let g:indentLine_color_dark = 1 " (default: 2)
+
+    " set list listchars=tab:»-,trail:·,extends:»,precedes:«
 endif
 
 
@@ -852,7 +863,7 @@ endfunction
 " beta {{{
     " python code format
     " format all file
-    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
+    " autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
     " format select block
     " autocmd FileType python vnoremap <leader>y :!yapf<Cr>
 
