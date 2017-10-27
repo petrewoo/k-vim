@@ -674,7 +674,7 @@ let base16colorspace=256  " Access colors present in 256 colorspace
 " colorscheme solarized
 " colorscheme molokai
 " colorscheme desert
-colorscheme base16-harmonic16-dark
+colorscheme base16-harmonic-dark
 " colorscheme base16-ashes
 
 
