@@ -25,8 +25,8 @@
 "==========================================
 
 " 修改leader键
-let mapleader = ','
-let g:mapleader = ','
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 
 " 开启语法高亮
 syntax on
@@ -62,8 +62,6 @@ filetype plugin indent on
 
 " 文件修改之后自动载入
 set autoread
-" 启动的时候不显示那个援助乌干达儿童的提示
-set shortmess=atI
 
 " 备份,到另一个位置. 防止误删, 目前是取消备份
 "set backup
@@ -99,7 +97,7 @@ set cursorline
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
 " 好处：误删什么的，如果以前屏幕打开，可以找回
-set t_ti= t_te=
+" set t_ti= t_te=
 
 
 " 鼠标暂不启用, 键盘党....
@@ -331,12 +329,8 @@ map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
 
-"Treat long lines as break lines (useful when moving around in them)
-"se swap之后，同物理行上线直接跳
-nnoremap k gk
-nnoremap gk k
-nnoremap j gj
-nnoremap gj j
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " F1 - F6 设置
 
@@ -385,10 +379,10 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 " 分屏窗口移动, Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" map <C-j> <C-W>j
+" map <C-k> <C-W>k
+" map <C-h> <C-W>h
+" map <C-l> <C-W>l
 
 
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin
@@ -414,7 +408,7 @@ noremap L $
 
 
 " Map ; to : and save a million keystrokes 用于快速进入命令行
-nnoremap ; :
+" nnoremap ; :
 
 
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
@@ -426,7 +420,7 @@ cnoremap <C-e> <End>
 
 " 搜索相关
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+" map <space> /
 " 进入搜索Use sane regexes"
 nnoremap / /\v
 vnoremap / /\v
@@ -439,7 +433,7 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " 去掉搜索高亮
-noremap <silent><leader>/ :nohls<CR>
+noremap <silent><leader>c :nohls<CR>
 
 " switch # *
 nnoremap # *
@@ -452,11 +446,11 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 " tab/buffer相关
 
 " 切换前后buffer
-nnoremap [b :bprevious<cr>
-nnoremap ]b :bnext<cr>
+" nnoremap [b :bprevious<cr>
+" nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
-noremap <left> :bp<CR>
-noremap <right> :bn<CR>
+" noremap <left> :bp<CR>
+" noremap <right> :bn<CR>
 
 
 " tab 操作
@@ -479,7 +473,7 @@ map <leader>tm :tabm<cr>
 " normal模式下切换到确切的tab
 noremap <leader>1 1gt
 noremap <leader>2 2gt
-noremap <leader>3 3gt
+" noremap <leader>3 3gt
 noremap <leader>4 4gt
 noremap <leader>5 5gt
 noremap <leader>6 6gt
@@ -532,7 +526,8 @@ nnoremap <leader>v V`}
 cmap w!! w !sudo tee >/dev/null %
 
 " kj 替换 Esc
-inoremap kj <Esc>
+" inoremap kj <Esc>
+inoremap <leader><leader> <Esc>
 
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 2<C-e>
@@ -596,14 +591,13 @@ autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
     "如果文件类型为.sh文件
     if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
+        call setline(1, "\#!/usr/bin/env bash")
     endif
 
     "如果文件类型为python
     if &filetype == 'python'
-        " call setline(1, "\#!/usr/bin/env python")
-        " call append(1, "\# encoding: utf-8")
-        call setline(1, "\# -*- coding: utf-8 -*-")
+        call setline(1, "\#!/usr/bin/env python")
+        call append(1, "\# -*- encoding: utf-8 -*-")
     endif
 
     normal G
@@ -628,6 +622,39 @@ endif
 " beta
 " https://dougblack.io/words/a-good-vimrc.html
 set lazyredraw          " redraw only when we need to.
+
+" tmux
+if exists('$TMUX')
+    set term=screen-256color
+endif
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+    set pastetoggle=<Esc>[201~
+    set paste
+        return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()]]
+
+" allows cursor change in tmux mode
+" let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+" let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" if exists('$TMUX')
+    " let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    " let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+" endif
 
 
 "==========================================
@@ -656,9 +683,13 @@ endif
 " theme主题
 set background=dark
 set t_Co=256
+let base16colorspace=256  " Access colors present in 256 colorspace
 
-colorscheme solarized
+" colorscheme solarized
 " colorscheme molokai
+" colorscheme desert
+colorscheme base16-harmonic-dark
+" colorscheme base16-ashes
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
@@ -675,3 +706,9 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+
+autocmd filetype crontab setlocal nobackup nowritebackup
+
+" set max line length for python
+set cc=80
+hi ColorColumn ctermbg=darkcyan guibg=darkcyan
