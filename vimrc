@@ -683,10 +683,13 @@ endif
 " theme主题
 set background=dark
 set t_Co=256
-let base16colorspace=256  " Access colors present in 256 colorspace
 
-colorscheme base16-harmonic-dark
+" base16
+" let base16colorspace=256  " Access colors present in 256 colorspace
+" colorscheme base16-harmonic-dark
 
+" Nord colortheme
+colorscheme nord
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
