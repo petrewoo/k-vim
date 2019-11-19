@@ -225,13 +225,14 @@ set ttyfast
 " 00x增减数字时使用十进制
 set nrformats=
 
-" 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
+" Automatic toggling between line number modes
 set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
-" 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
+augroup numbertoggle
+  au!
+  au FocusGained,InsertLeave * set relativenumber
+  au FocusLost,InsertEnter * set norelativenumber
+augroup END
+
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber number
@@ -711,3 +712,6 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 " set max line length for python
 set cc=80
 hi ColorColumn ctermbg=darkcyan guibg=darkcyan
+
+" Bug fix: Clean the underline of relative line number.
+hi clear CursorLineNr
