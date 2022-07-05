@@ -154,7 +154,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "add scratch.vim
 Plug 'mtth/scratch.vim'
 
-Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'Yggdroot/indentLine'
 
