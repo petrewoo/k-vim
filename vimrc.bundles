@@ -17,7 +17,7 @@ filetype off " required! turn off
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
     " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'json', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript', 'shell']
-    let g:bundle_groups=['python', 'tmux', 'beta', 'json', 'golang', 'html', 'javascript']
+    let g:bundle_groups=['python', 'tmux', 'beta', 'json', 'golang']
 endif
 
 " ----------------------------------------------------------------------------
@@ -155,7 +155,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'mtth/scratch.vim'
 
 " Plug 'chriskempson/base16-vim'
-Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
 Plug 'Yggdroot/indentLine'
 
 if count(g:bundle_groups, 'tmux')
@@ -179,7 +179,7 @@ if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', {'for': 'go'}
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     Plug 'nsf/gocode'
     Plug 'bradfitz/goimports'
 endif
